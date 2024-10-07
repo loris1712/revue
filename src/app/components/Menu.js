@@ -5,7 +5,6 @@ export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Aggiungi gestione scroll per modificare il background della nav bar
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 30) {
@@ -26,7 +25,7 @@ export default function Menu() {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
               <img
-                src="/logo.png" 
+                src="/logo.svg" 
                 alt="Logo"
                 className="h-8 w-auto"
               />
