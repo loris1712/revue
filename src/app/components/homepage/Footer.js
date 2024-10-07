@@ -3,33 +3,36 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="bg-[#070D1A] py-4">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between px-4 md:px-0 md:items-center text-white space-y-4 md:space-y-0">
-        <div className="flex-shrink-0">
-          <img
-            src="/logo.svg"
-            alt="Company Logo"
-            className="h-8 w-auto"
-          />
-        </div>
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0 text-white">
+        
+        <Link href="/">
+          <div className="flex-shrink-0 md:col-span-1 flex justify-center md:justify-start">
+            <img
+              src="/logo.svg"
+              alt="Company Logo"
+              className="h-8 w-auto"
+            />
+          </div>
+        </Link>
 
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-          <a href="/terms" className="text-sm hover:underline">
+        {/* Colonna Links */}
+        <div className="flex flex-col md:flex-row justify-center md:justify-center space-y-2 md:space-y-0 md:space-x-6">
+          <Link href="/terms" className="text-sm hover:underline text-center md:text-left">
             Terms & Conditions
-          </a>
-          <a href="/privacy" className="text-sm hover:underline">
+          </Link>
+          <Link href="/privacy" className="text-sm hover:underline text-center md:text-left">
             Privacy Policy
-          </a>
-          <a href="/contact" className="text-sm hover:underline">
+          </Link>
+          <Link href="/contact" className="text-sm hover:underline text-center md:text-left">
             Contact Us
-          </a>
+          </Link>
         </div>
 
-        <div className="text-sm">
+        {/* Colonna Copyright */}
+        <div className="text-sm flex justify-center md:justify-end">
           © 2024 Company, Inc.
         </div>
       </div>
     </footer>
   );
 }
-
-
