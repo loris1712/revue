@@ -1,17 +1,17 @@
-// app/login/page.js
+// app/register/page.js
 'use client';
 import { useState } from 'react';
 import { supabase } from '../../../lib/supabaseClient';
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -19,16 +19,16 @@ export default function Login() {
     if (error) {
       setErrorMessage(error.message);
     } else {
-      // Redirect to dashboard or another page on success
+      // Redirect to a confirmation page or dashboard
       window.location.href = '/dashboard';
     }
   };
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
+    <div className="register-container">
+      <h1>Register</h1>
       {errorMessage && <p className="error">{errorMessage}</p>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           placeholder="Email"
@@ -41,7 +41,7 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );

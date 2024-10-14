@@ -41,16 +41,16 @@ export default function Menu() {
             <Link href="/terms" className="text-white hover:text-gray-300">
               Terms
             </Link>
-            <Link href="/login">
-              <button className="ml-4 px-4 py-2 bg-[#3571FF] text-white rounded-[12px] hover:bg-[#2858cc]">
+            <Link href="/loginBS">
+              <button className="ml-4 px-6 py-2 bg-[#3571FF] text-white rounded-[12px] hover:bg-[#2858cc] text-[14px]">
                 Login
               </button>
             </Link>
           </div>
           <div className="flex md:hidden items-center">
 
-            <Link href="/login">
-              <button className="block w-full px-4 py-2 bg-[#3571FF] text-white rounded-[12px] hover:bg-[#2858cc] text-xs">
+            <Link href="/loginBS">
+              <button className="block w-full px-6 py-2 bg-[#3571FF] text-white rounded-[12px] hover:bg-[#2858cc] text-[14px]">
                 Login
               </button>
             </Link>

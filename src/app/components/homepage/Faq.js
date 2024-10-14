@@ -9,19 +9,29 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: 'What is the return policy?',
+      question: 'Are the reviews genuine?',
       answer:
-        'You can return any item within 30 days of purchase as long as it is in its original condition. Please visit our return center for more details.',
+        'Revue ensures that all reviews are authentic by gathering direct customer feedback. The AI helps streamline the process but doesn\'t generate reviews automatically.',
     },
     {
-      question: 'How do I track my order?',
+      question: 'Does AI-powered generation create identical reviews?',
       answer:
-        'Once your order is shipped, you will receive an email with a tracking link. You can also track your order through your account page.',
+        'No, Revue’s AI customizes the review experience by tailoring questions based on your business needs, ensuring that reviews are diverse and personalized, reflecting each customer’s unique experience.',
     },
     {
-      question: 'Do you offer international shipping?',
+      question: 'Is Revue customizable for my business?',
       answer:
-        'Yes, we offer worldwide shipping. Shipping times and costs will vary depending on your location. Visit our shipping page for more details.',
+        'Yes, Revue allows full customization of questions, so you can align them with your specific business goals and target areas where you need more insights.',
+    },
+    {
+      question: 'Which platforms does Revue work with?',
+      answer:
+        'Revue integrates seamlessly with a variety of platforms including your website, social media, and review sites like Google, Yelp, and TripAdvisor.',
+    },
+    {
+      question: 'Do I need technical knowledge to use it?',
+      answer:
+        'No, Revue is designed to be user-friendly. It doesn’t require any technical expertise, making it accessible for business owners of all backgrounds.',
     },
   ];
 

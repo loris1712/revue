@@ -7,9 +7,9 @@ export default function Hero3() {
         </div>
         <div className="flex flex-col md:flex-row md:items-center md:space-x-6 mb-16">
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Grande Titolo Bianco</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Effortlessly Boost Customer Reviews with AI-Powered Simplicity</h2>
             <p className="text-[#7F8EA3] text-sm mb-8">
-              Questa è una descrizione breve che spiega questa sezione.
+              Revue streamlines the review process, making it easy for your customers to leave feedback in seconds. With AI-powered tools that tailor questions to your business needs, you’ll gather more targeted insights and enhance your online reputation effortlessly.
             </p>
           </div>
 
@@ -29,9 +29,9 @@ export default function Hero3() {
             <div className="flex">
               <div className="border-l-4 border-[#3571FF] mr-4"></div>
               <div>
-                <h3 className="text-white text-lg font-semibold">Titolo 1</h3>
+                <h3 className="text-white text-lg font-semibold">AI-Powered Customization</h3>
                 <p className="text-[#7F8EA3] text-sm">
-                  Descrizione breve di questa sezione, che spiega il contenuto del box.
+                  Revue's AI technology tailors review questions specifically to your business, ensuring you gather the most relevant feedback from customers.
                 </p>
               </div>
             </div>
@@ -39,9 +39,9 @@ export default function Hero3() {
             <div className="flex">
               <div className="border-l-4 border-[#3571FF] mr-4"></div>
               <div>
-                <h3 className="text-white text-lg font-semibold">Titolo 2</h3>
+                <h3 className="text-white text-lg font-semibold">Quick and Easy Process</h3>
                 <p className="text-[#7F8EA3] text-sm">
-                  Descrizione breve di questa sezione, che spiega il contenuto del box.
+                  Customers can leave reviews in under 20 seconds, making it convenient and simple for them to share their thoughts, boosting participation.
                 </p>
               </div>
             </div>
@@ -51,9 +51,9 @@ export default function Hero3() {
             <div className="flex">
               <div className="border-l-4 border-[#3571FF] mr-4"></div>
               <div>
-                <h3 className="text-white text-lg font-semibold">Titolo 3</h3>
+                <h3 className="text-white text-lg font-semibold">Targeted Insights</h3>
                 <p className="text-[#7F8EA3] text-sm">
-                  Descrizione breve di questa sezione, che spiega il contenuto del box.
+                  Get deeper insights into customer experiences with targeted feedback, helping you make data-driven decisions to improve your business.
                 </p>
               </div>
             </div>
@@ -61,9 +61,9 @@ export default function Hero3() {
             <div className="flex">
               <div className="border-l-4 border-[#3571FF] mr-4"></div>
               <div>
-                <h3 className="text-white text-lg font-semibold">Titolo 4</h3>
+                <h3 className="text-white text-lg font-semibold">Boost Online Reputation</h3>
                 <p className="text-[#7F8EA3] text-sm">
-                  Descrizione breve di questa sezione, che spiega il contenuto del box.
+                  By making reviews easier for your customers, Revue helps you increase the number of reviews and build a stronger online presence.
                 </p>
               </div>
             </div>
