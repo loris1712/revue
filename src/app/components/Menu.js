@@ -30,20 +30,36 @@ export default function Menu() {
                 className="h-8 w-auto"
               />
             </Link>
-          </div>
-          <div className="hidden md:flex items-center space-x-6 text-[12px]">
+
+            <div className='ml-6 space-x-6 text-[14px] md:inline hidden'>
             <Link href="/" className="text-white hover:text-gray-300">
               Home
             </Link>
-            <Link href="/privacy" className="text-white hover:text-gray-300">
-              Privacy
+            <Link href="/" className="text-white hover:text-gray-300">
+              Features
+            </Link>
+            <Link href="/customers" className="text-white hover:text-gray-300">
+              Feedback
             </Link>
             <Link href="/terms" className="text-white hover:text-gray-300">
-              Terms
+              Privacy & Policy
             </Link>
+            <Link href="/terms" className="text-white hover:text-gray-300">
+              Terms & Conditions
+            </Link>
+            </div>
+            
+          </div>
+          <div className="hidden md:flex items-center space-x-6 text-[14px]">
+            
             <Link href="/loginBS">
-              <button className="ml-4 px-6 py-2 bg-[#3571FF] text-white rounded-[12px] hover:bg-[#2858cc] text-[14px]">
-                Login
+              <button className="ml-4 px-6 py-2 bg-transparent text-white rounded-[100px] hover:bg-[#2858cc] font-semibold flex items-center">
+                Login <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span>
+              </button>
+            </Link>
+            <Link href="/signupBS">
+            <button className="px-6 py-2 bg-white text-[#3571FF] rounded-[100px] hover:bg-gray-200 font-semibold flex items-center">
+                Sign Up <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#3571FF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span>
               </button>
             </Link>
           </div>

@@ -69,7 +69,7 @@ export default function FAQ() {
                   openQuestion === index ? 'max-h-screen' : 'max-h-0'
                 }`}
               >
-                <p className="text-[#7F8EA3] text-sm pr-4 pb-4">{faq.answer}</p>
+                <p className="text-[#d6d6d6] text-sm pr-4 pb-4">{faq.answer}</p>
               </div>
             </div>
           ))}

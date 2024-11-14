@@ -7,7 +7,7 @@ export default function HeroPlans() {
         <div className="flex flex-col items-center text-center mb-12">
           <div className="border-l-2 border-dashed border-white-500 h-24 w-0 mx-auto mb-8"></div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Choose Your Plan</h2>
-          <p className="text-[#7F8EA3] text-sm">
+          <p className="text-[#d6d6d6] text-sm">
             Select the plan that works best for you, with affordable prices and great benefits.
           </p>
         </div>
@@ -15,13 +15,13 @@ export default function HeroPlans() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[rgba(15,23,42,0.35)] border border-[#0F172A] rounded-[12px] p-6 flex flex-col text-left">
             <h3 className="text-white text-2xl font-semibold mb-2">Basic Plan</h3>
-            <p className="text-[#7F8EA3] text-sm mb-6">Perfect for individuals and small businesses.</p>
+            <p className="text-[#d6d6d6] text-sm mb-6">Perfect for individuals and small businesses.</p>
             <div className="text-white text-4xl font-bold mb-4">
               $10 <span className="text-xs font-light">/week</span>
             </div>
             <Link href="/">
               <button className="w-full bg-[#3571FF] text-white py-2 px-4 rounded-[12px] hover:bg-[#265ecf] mb-6 text-sm">
-                Get Started
+                <div className='items-center flex mx-auto w-[fit-content]'>Get Started <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span></div>
               </button>
             </Link>
             <ul className="space-y-2">
@@ -39,13 +39,13 @@ export default function HeroPlans() {
 
           <div className="bg-[rgba(15,23,42,0.35)] border border-[#0F172A] rounded-[12px] p-6 flex flex-col text-left">
             <h3 className="text-white text-2xl font-semibold mb-2">Pro Plan</h3>
-            <p className="text-[#7F8EA3] text-sm mb-6">Best for growing businesses and teams.</p>
+            <p className="text-[#d6d6d6] text-sm mb-6">Best for growing businesses and teams.</p>
             <div className="text-white text-4xl font-bold mb-4">
               $25 <span className="text-xs font-light">/week</span>
             </div>
             <Link href="/">
               <button className="w-full bg-[#3571FF] text-white py-2 px-4 rounded-[12px] hover:bg-[#265ecf] mb-6 text-sm">
-                Get Started
+                <div className='items-center flex mx-auto w-[fit-content]'>Get Started <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span></div>
               </button>
              </Link> 
             <ul className="space-y-2">
@@ -63,13 +63,13 @@ export default function HeroPlans() {
 
           <div className="bg-[rgba(15,23,42,0.35)] border border-[#0F172A] rounded-[12px] p-6 flex flex-col text-left">
             <h3 className="text-white text-2xl font-semibold mb-2">Enterprise Plan</h3>
-            <p className="text-[#7F8EA3] text-sm mb-6">For large businesses with more advanced needs.</p>
+            <p className="text-[#d6d6d6] text-sm mb-6">For large businesses with more advanced needs.</p>
             <div className="text-white text-4xl font-bold mb-4">
               $50 <span className="text-xs font-light">/week</span>
             </div>
             <Link href="/">
               <button className="w-full bg-[#3571FF] text-white py-2 px-4 rounded-[12px] hover:bg-[#265ecf] mb-6 text-sm">
-                Get Started
+                <div className='items-center flex mx-auto w-[fit-content]'>Get Started <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span></div>
               </button>
             </Link>
             <ul className="space-y-2">

@@ -7,22 +7,21 @@ export default function SectionWithButtons() {
         Available worldwide
       </h2>
 
-      <p className="text-[#7F8EA3] text-sm text-center max-w-lg mx-auto mb-8">
+      <p className="text-[#d6d6d6] text-sm text-center max-w-lg mx-auto mb-8">
         Start now your journey with us.
       </p>
 
       <div className="flex justify-center space-x-4">
-        <Link href="/">
-          <button className="bg-[#3571FF] text-white py-2 px-6 text-[14px] rounded-[12px] hover:bg-[#265ecf]">
-            Login
-          </button>
-        </Link>  
-
-        <Link href="/">
-          <button className="bg-white text-[#3571FF] py-2 px-6 text-[14px] rounded-[12px] hover:bg-gray-200">
-            Sign Up
-          </button>
-        </Link>
+      <Link href="/signupBS">
+            <button className="px-6 py-2 bg-white text-[#3571FF] rounded-[100px] hover:bg-gray-200 font-semibold flex items-center">
+                Sign Up <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#3571FF" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span>
+              </button>
+            </Link>
+        <Link href="/loginBS">
+              <button className="px-6 py-2 bg-transparent text-white rounded-[100px] hover:bg-[#2858cc] font-semibold flex items-center">
+                Login <span><svg style={{width: '12px', height: '12px', marginLeft: '0.2rem'}} fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg></span>
+              </button>
+            </Link>
       </div>
     </section>
   );
