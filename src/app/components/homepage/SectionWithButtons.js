@@ -4,7 +4,7 @@ export default function SectionWithButtons() {
   return (
     <section className="py-16 bg-transparent">
       <h2 className="text-white text-4xl font-bold text-center mb-4">
-        Available worldwide
+        Available <span style={{ fontFamily: 'Poppins', fontWeight: 500, fontStyle: 'italic' }}>Worldwide</span>
       </h2>
 
       <p className="text-[#d6d6d6] text-sm text-center max-w-lg mx-auto mb-8">

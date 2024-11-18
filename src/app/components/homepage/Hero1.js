@@ -1,8 +1,11 @@
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 
 export default function HeroSection() {
+  
+
   return (
-    <section className="bg-gradient-to-b from-[#030711] via-[#3571FF] to-[#030711] py-18" style={{ paddingTop: '10rem' }}>
+    <section className="bg-gradient-to-b from-[#030711] via-[#1d49b3] to-[#030711] py-18" style={{ paddingTop: '10rem' }}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center md:flex-row md:text-left md:items-start md:space-x-8">
           {/* Testo e pulsanti */}
@@ -11,12 +14,12 @@ export default function HeroSection() {
               <p className="text-xs">Increase customer reviews with feedback in under 20s</p>
             </div>
 
-            <div className="text-4xl md:text-[86px] font-bold text-white mb-4 leading-normal md:leading-[86px]">
-              Generate your reviews
+            <div className="text-4xl md:text-[76px] font-bold text-white mb-4 leading-normal md:leading-[86px]">
+              AI-Driven Reviews Made <span style={{ fontFamily: 'Poppins', fontWeight: 500, fontStyle: 'italic' }}>Easy for Your Customers</span>
             </div>
 
             <p className="text-[#d6d6d6] text-[14px] mb-6">
-              With Revue, you can significantly increase the number of customer reviews by making the process incredibly fast and easy. The software allows business owners to customize the questions, guiding customers to provide feedback in a targeted way—almost like an interview where you control the conversation. Customers can leave a review in under 20 seconds, making it perfect for those who prefer a quick and effortless experience, while still allowing flexibility for those who enjoy more detailed input.
+              Revue is an AI-powered solution that simplifies and speeds up the review process, making it easy for customers to leave quick feedback or share more detailed insights.
             </p>
 
             <div className="flex justify-center md:justify-start space-x-4 text-[14px]">
