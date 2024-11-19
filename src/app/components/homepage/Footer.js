@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#070D1A] py-4">
+    <footer className="bg-[#1d49b3] py-4">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0 text-white">
         
         <Link href="/">
@@ -29,7 +29,7 @@ export default function Footer() {
         </div>
 
         {/* Colonna Copyright */}
-        <div className="text-sm flex justify-center md:justify-end">
+        <div className="text-[12px] flex justify-center md:justify-end ">
           © 2024 Company, Inc.
         </div>
       </div>

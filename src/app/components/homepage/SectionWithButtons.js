@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function SectionWithButtons() {
   return (
-    <section className="py-16 bg-transparent">
+    <section className="py-24 bg-gradient-to-b from-[#030711] to-[#1d49b3]">
       <h2 className="text-white text-4xl font-bold text-center mb-4">
         Available <span style={{ fontFamily: 'Poppins', fontWeight: 500, fontStyle: 'italic' }}>Worldwide</span>
       </h2>
