@@ -46,14 +46,14 @@ export default function HeroSection() {
         
         {/* Sezione loghi */}
         <div className="mt-[8rem] grid grid-cols-4 gap-8 mb-[6rem]">
-          {Array.from({ length: 8 }).map((_, index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div key={index} className="flex items-center justify-center relative">
               {/* Logo placeholder */}
-              <img src={`/logo${index + 1}.png`} alt={`Client logo ${index + 1}`} className="w-20 h-auto" />
+              <img src={`/logo${index + 1}.png`} alt={`Client logo ${index + 1}`} className="w-40 h-auto" />
 
               {/* Linea tratteggiata (solo tra colonne) */}
               {index % 4 !== 3 && (
-                <div className="absolute right-0 h-full border-r border-dashed border-gray-300"></div>
+                <div className="absolute right-0 h-full border-r border-dashed border-[#d1d5db1f]"></div>
               )}
             </div>
           ))}

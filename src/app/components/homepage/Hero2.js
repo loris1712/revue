@@ -26,14 +26,14 @@ export default function Hero2() {
     <section className="py-16 mb-16" ref={containerRef}>
       <div className="container mx-auto px-4">
         <div className="flex justify-center mb-4">
-          <div className="border-l-2 border-dashed border-white-500 h-24 w-0 mx-auto mb-8"></div>
+          <div className="border-l-2 border-dashed border-[#d1d5db1f] h-24 w-0 mx-auto mb-8"></div>
         </div>
 
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Grande Titolo Bianco</h2>
-          <p className="text-[#d6d6d6] text-sm">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">How Revue Works in 3 Simple Steps</h2>
+          {/*<p className="text-[#d6d6d6] text-sm">
             Questa è una descrizione breve che spiega questa sezione.
-          </p>
+          </p>*/}
         </div>
 
         <div className="flex flex-col md:flex-row md:space-x-6">

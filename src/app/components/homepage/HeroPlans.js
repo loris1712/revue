@@ -5,7 +5,7 @@ export default function HeroPlans() {
     <section className="bg-[#030711] py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center mb-12">
-          <div className="border-l-2 border-dashed border-white-500 h-24 w-0 mx-auto mb-8"></div>
+          <div className="border-l-2 border-dashed border-[#d1d5db1f] h-24 w-0 mx-auto mb-8"></div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Choose Your Plan</h2>
           <p className="text-[#d6d6d6] text-sm">
             Select the plan that works best for you, with affordable prices and great benefits.

@@ -101,7 +101,7 @@ export default function Packs() {
         <h2 className="text-xl text-[#030711] font-semibold">Packs</h2>
         <button
           onClick={openAddPackPopup}
-          className="ml-4 px-4 py-2 bg-[#3471FF] text-white rounded-md text-[14px] ml-auto"
+          className="ml-4 px-4 py-2 bg-[#3471FF] text-white rounded-[100px] text-[14px] ml-auto"
         >
           Add Pack
         </button>
@@ -117,7 +117,7 @@ export default function Packs() {
               {/* Tasto Modifica */}
               <button
                 onClick={() => openEditPackPopup(pack)}
-                className="px-4 py-2 bg-[#3471FF] text-white rounded-md text-sm w-[50%]"
+                className="px-4 py-2 bg-[#3471FF] text-white rounded-[100px] text-sm w-[50%]"
               >
                 Edit
               </button>
@@ -125,7 +125,7 @@ export default function Packs() {
               {/* Tasto Seleziona */}
               <button
                 onClick={() => handleSelectPack(pack.id)}
-                className={`px-4 py-2 text-white rounded-md text-sm w-[50%]
+                className={`px-4 py-2 text-white rounded-[100px] text-sm w-[50%]
                   ${selectedPack === pack.id ? 'bg-green-500' : 'bg-gray-500'}`}
               >
                 {selectedPack === pack.id ? 'Selected' : 'Select'}

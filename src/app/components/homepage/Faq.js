@@ -39,7 +39,7 @@ export default function FAQ() {
     <section className="bg-[#030711] py-16 mb-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center mb-12">
-          <div className="border-l-2 border-dashed border-gray-500 h-32 w-0 mb-8"></div>
+          <div className="border-l-2 border-dashed border-[#d1d5db1f] h-32 w-0 mb-8"></div>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         </div>
 

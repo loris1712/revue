@@ -50,7 +50,7 @@ export default function LastReviews() {
       </div>
 
       {/* Contenitore scorrevole delle recensioni */}
-      <div className="flex space-x-4 overflow-x-scroll md:w-[65vw] w-[92vw]">
+      <div className="flex space-x-4 overflow-x-scroll md:w-[100%] w-[92vw]">
         {reviews.slice(0, 6).map((review) => (
           <div key={review.id} className="bg-[#030711] rounded-lg p-4 w-64 flex-shrink-0">
             <p className="text-[#7F8EA3] text-xs mb-2">{review.date}</p>

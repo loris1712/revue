@@ -82,7 +82,7 @@ export default function Packs() {
       </div>
 
       {/* Contenitore scorrevole dei pacchetti */}
-      <div className="flex space-x-4 overflow-x-scroll md:w-[65vw] w-[92vw]">
+      <div className="flex space-x-4 overflow-x-scroll md:w-[100%] w-[92vw]">
         {packs.map((pack) => (
           <div
             key={pack.id}

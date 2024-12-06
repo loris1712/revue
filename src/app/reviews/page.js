@@ -23,12 +23,12 @@ export default function Dashboard() {
   }, [router]);
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen md:flex">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Content Area */}
-      <div className="flex-1 md:p-10 text-white bg-white pt-20 pl-4 pr-4">
+      <div className="md:p-10 text-white bg-white pt-10 pl-4 pr-4 md:w-[83%] md:ml-auto h-[100vh]">
         <h1 className="text-3xl font-bold text-[#030711]">Hello, Company Name</h1>
         <h1 className="text-2xl font-light mb-6 text-[#030711]">Reviews Area</h1>
 

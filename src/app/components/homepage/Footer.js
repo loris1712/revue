@@ -8,7 +8,7 @@ export default function Footer() {
         <Link href="/">
           <div className="flex-shrink-0 md:col-span-1 flex justify-center md:justify-start">
             <img
-              src="/logo.svg"
+              src="/revue_logo.png"
               alt="Company Logo"
               className="h-8 w-auto"
             />

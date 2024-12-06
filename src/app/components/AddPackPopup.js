@@ -56,7 +56,7 @@ export default function AddPackPopup({ isOpen, onClose, packData, onSave }) {
     isOpen && (
       <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white p-8 rounded-lg w-1/3">
-          <h3 className="text-xl font-semibold text-[#030711]">{packData ? 'Edit Pack' : 'Add Pack'}</h3>
+          <h3 className="text-xl font-semibold text-[#030711] rounded-[100px]">{packData ? 'Edit Pack' : 'Add Pack'}</h3>
 
           <label className="block mt-4 text-[#030711] text-[14px]">
             Title:
@@ -109,13 +109,13 @@ export default function AddPackPopup({ isOpen, onClose, packData, onSave }) {
           <div className="mt-6 flex justify-end text-[14px]">
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-gray-500 text-white rounded-md mr-2"
+              className="px-4 py-2 bg-gray-500 text-white rounded-[100px] mr-2"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 bg-[#3471FF] text-white rounded-md"
+              className="px-4 py-2 bg-[#3471FF] text-white rounded-[100px]"
               disabled={loading}
             >
               {loading ? 'Saving...' : 'Save'}

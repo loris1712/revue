@@ -25,9 +25,9 @@ export default function Menu() {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
               <img
-                src="/logo.svg" 
+                src="/revue_logo.png" 
                 alt="Logo"
-                className="h-8 w-auto"
+                className="h-10 w-auto"
               />
             </Link>
 

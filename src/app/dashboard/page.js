@@ -5,13 +5,14 @@ import { useRouter } from 'next/navigation';
 import Sidebar from '../components/Sidebar';
 import LastReviews from '../components/LastReviews';
 import Packs from '../components/Packs';
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function Dashboard() {
   const [session, setSession] = useState(null);
-  const [qrCodeUrl, setQrCodeUrl] = useState(''); // Stato per conservare l'URL da passare al QRCode
+  const [qrCodeUrl, setQrCodeUrl] = useState('');
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false); // Stato per verificare se siamo nel client
+  const [isClient, setIsClient] = useState(false);
+  const [showNav, setShowNav] = useState(false); // Stato per controllare la visibilità della navbar
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -25,34 +26,48 @@ export default function Dashboard() {
     fetchSession();
   }, [router]);
 
-  // Imposta lo stato `isClient` a true quando il componente è montato
   useEffect(() => {
     setIsClient(true);
-    // Imposta l'URL per il QR code dopo il montaggio del componente
     if (typeof window !== 'undefined') {
-      setQrCodeUrl(window.location.href); // Ottieni l'URL corrente
+      setQrCodeUrl(window.location.href);
     }
+
+    const handleScroll = () => {
+      // Mostra la navbar se scorri più di 50px, nascondila altrimenti
+      setShowNav(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Funzione per copiare il link negli appunti
   const handleCopyLink = () => {
     if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href); // Copia l'URL corrente
-      alert('Link copiato negli appunti!'); // Mostra un messaggio di conferma
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copiato negli appunti!');
     }
   };
 
   if (!isClient) {
-    return null; // Evita di rendere la sezione finché non siamo nel client
+    return null;
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen md:flex">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Content Area */}
-      <div className="flex-1 md:p-10 text-white bg-white pt-20 pl-4 pr-4">
+      <div className="md:p-10 text-white bg-white pt-10 pl-4 pr-4 md:w-[83%] md:ml-auto">
+        {/* Sticky Navbar */}
+        {showNav && (
+          <div className="fixed top-0 md:left-[16%] md:w-[84%] w-full left-0 bg-[#060911] text-white py-4 px-8 shadow-lg z-50">
+            <h1 className="text-[16px] font-bold">Company Name</h1>
+            <p className="text-[12px] font-light">Dashboard</p>
+          </div>
+        )}
+
+        {/* Main Content */}
         <h1 className="text-3xl font-bold text-[#030711]">Hello, Company Name</h1>
         <h1 className="text-2xl font-light mb-6 text-[#030711]">Here is your Dashboard</h1>
 
@@ -67,7 +82,7 @@ export default function Dashboard() {
             {/* Copy Link Button */}
             <button
               onClick={handleCopyLink}
-              className="bg-white text-[#3471FF] px-6 py-2 rounded-md shadow-md hover:bg-gray-200 text-[14px]"
+              className="bg-white text-[#3471FF] px-6 py-2 rounded-[100px] shadow-md hover:bg-gray-200 text-[14px]"
             >
               Copy Link
             </button>
@@ -75,7 +90,6 @@ export default function Dashboard() {
 
           {/* QR Code */}
           <div className="mt-6 md:mt-0 md:w-100 flex flex-end">
-            {/* QR Code generato solo dopo che isClient è true */}
             <QRCodeSVG value={qrCodeUrl} />
           </div>
         </div>

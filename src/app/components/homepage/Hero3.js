@@ -31,7 +31,7 @@ export default function Hero3() {
       <div className="container mx-auto px-4">
         {/* Linea decorativa */}
         <div className="flex justify-center mb-8">
-          <div className="border-l-2 border-dashed border-white-500 h-24 w-0 mx-auto mb-8"></div>
+          <div className="border-l-2 border-dashed border-[#d1d5db1f] h-24 w-0 mx-auto mb-8"></div>
         </div>
 
         {/* Intestazione e descrizione */}
