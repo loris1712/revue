@@ -1,14 +1,21 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { supabase } from '../../../lib/supabaseClient';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '../../../lib/firebaseClient';
+import { useRouter } from 'next/navigation';
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false); // Stato per monitorare se il componente è stato montato lato client
+  const [mounted, setMounted] = useState(false); 
   const [currentPath, setCurrentPath] = useState('');
+  const [name, setName] = useState('');
+  const [userId, setUserId] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
-    setMounted(true); // Impostiamo mounted a true quando il componente è montato sul client
-    setCurrentPath(window.location.pathname); // Otteniamo il percorso della pagina
+    setMounted(true); 
+    setCurrentPath(window.location.pathname); 
   }, []);
 
   const toggleSidebar = () => {
@@ -16,13 +23,49 @@ export default function Sidebar() {
   };
 
   const isActiveLink = (path) => {
-    if (!mounted) return false; // Evitiamo di usare window.location prima che il componente sia montato
+    if (!mounted) return false;
     return currentPath === path;
   };
 
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Errore nel logout:', error);
+    } else {
+      window.location.href = '/loginBS';
+    }
+  };
+
+  useEffect(() => {
+    async function fetchUserAndProfile() {
+      try {
+        const { data: { user }, error } = await supabase.auth.getUser();
+        if (error) throw error;
+
+        if (user) {
+          setUserId(user.id);
+
+          const docRef = doc(db, 'restaurant_profiles', user.id);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const profileData = docSnap.data();
+            setName(profileData.name || '');
+          }
+        } else {
+          router.push('/loginBS'); 
+        }
+      } catch (error) {
+        console.error('Error fetching user or profile:', error.message || error);
+      }
+    }
+
+    fetchUserAndProfile();
+  }, [router]);
+
   return (
     <>
-      <div className="md:hidden top-0 left-0 w-full bg-[#060911] shadow-lg p-2 z-50 flex items-center justify-between">
+      <div className="md:hidden top-0 left-0 w-full bg-[#060911] shadow-lg p-2 z-50 flex items-center justify-between fixed md:relative">
         <div className="p-2 bg-[#030711] rounded-lg">
           <button onClick={toggleSidebar}>
             <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" stroke="#fff">
@@ -49,7 +92,7 @@ export default function Sidebar() {
           <img src="/revue_logo.png" alt="Company Logo" className="h-12 w-auto" />
         </div>
 
-        <h2 className="text-gray-600 font-semibold text-[16px] text-center mb-6 md:mt-0 mt-6">Company Name</h2>
+        <h2 className="text-gray-600 font-semibold text-[16px] text-center mb-6 md:mt-0 mt-6">{name}</h2>
 
         <nav className="space-y-2 mr-3 ml-3">
           <div>
@@ -101,15 +144,16 @@ export default function Sidebar() {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" style={{ marginLeft: 'auto'}} className={`h-4 w-4 ml-auto ${isActiveLink('/settings') ? 'fill-white inline' : 'fill-[#4b5563] hidden'}`}><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
           </Link>
 
-          <Link
-            href="/logout"
+          <div
+            onClick={() => handleLogout()}
             className={`flex items-center space-x-4 text-gray-600 text-[14px] px-4 py-2 rounded-[8px] ${
               isActiveLink('/logout') ? 'bg-[#3471FF] text-white' : ''
             }`}
+
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={`h-5 w-5 ${isActiveLink('/logout') ? 'fill-white' : 'fill-[#4b5563]'}`}><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></svg>
             <span>Logout</span>
-          </Link>
+          </div>
         </nav>
 
         <div className="mt-auto px-4 py-6 text-center text-sm text-gray-500">

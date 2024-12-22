@@ -75,9 +75,10 @@ export default function Packs() {
   return (
     <div className="mb-10">
       <div className="flex items-center mb-4">
-        <h2 className="text-xl text-[#030711] font-semibold">Packs</h2>
-        <Link href="/questions" className="ml-auto text-[#3571FF] hover:underline">
-          View All
+        <h2 className="text-2xl text-[#fff] font-semibold">Packs</h2>
+        <Link href="/questions" className="ml-auto text-[#3571FF]">
+          View All &nbsp;
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" className={`h-3 w-3 ml-auto fill-[#3571FF] inline`}><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
         </Link>
       </div>
 
@@ -87,11 +88,12 @@ export default function Packs() {
           <div
             key={pack.id}
             onClick={() => handlePackSelect(pack.id)}
-            className={`rounded-lg p-4 w-64 h-64 flex-shrink-0 cursor-pointer 
-              ${selectedPack === pack.id ? 'bg-green-500' : 'bg-[#030711]'}`
+            className={`rounded-lg p-4 w-64 h-64 flex-shrink-0 cursor-pointer  border
+           border-[#0f172a]
+              ${selectedPack === pack.id ? 'bg-[#3471FF]' : 'bg-[#0b16339c]'}`
             }
           >
-            <p className="text-[#7F8EA3] text-xs mb-2">{pack.category}</p>
+            <p className="text-[#fff] text-xs mb-2">{pack.category}</p>
             <h3 className="text-white text-lg">{pack.title}</h3>
           </div>
         ))}

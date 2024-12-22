@@ -98,7 +98,7 @@ export default function Packs() {
   return (
     <div className="mb-10">
       <div className="flex items-center mb-4">
-        <h2 className="text-xl text-[#030711] font-semibold">Packs</h2>
+        <h2 className="text-2xl text-[#fff] font-semibold">Packs</h2>
         <button
           onClick={openAddPackPopup}
           className="ml-4 px-4 py-2 bg-[#3471FF] text-white rounded-[100px] text-[14px] ml-auto"
@@ -107,9 +107,10 @@ export default function Packs() {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {packs.map((pack) => (
-          <div key={pack.id} className="relative p-4 bg-[#030711] rounded-lg">
+          <div key={pack.id} className="relative p-4 bg-[#0b16339c] rounded-lg border border-[#0f172a]">
+
             <p className="text-[#7F8EA3] text-xs mb-2">{pack.category}</p>
             <h3 className="text-white text-lg">{pack.title}</h3>
 

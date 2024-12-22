@@ -1,18 +1,41 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Importa useRouter per il redirect
 import { supabase } from '../../../lib/supabaseClient';
-import Link from 'next/link';
 
-export default function Login() {
+export default function AuthApp() {
+  const [session, setSession] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [mounted, setMounted] = useState(false);
+  const router = useRouter(); // Hook per il redirect
 
   useEffect(() => {
     setMounted(true); // Segnala che il componente è montato
-  }, []);
+
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setSession(session);
+        router.push('/dashboard'); // Redirect se la sessione è attiva
+      }
+    };
+
+    const { data: subscription } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+
+      if (session) {
+        router.push('/dashboard'); // Redirect al login
+      }
+    });
+
+    checkSession();
+
+    // Cleanup subscription
+    return () => subscription?.unsubscribe?.();
+  }, [router]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,8 +48,7 @@ export default function Login() {
     if (error) {
       setErrorMessage(error.message);
     } else {
-      // Redirect to dashboard or another page on success
-      window.location.href = '/dashboard';
+      router.push('/dashboard'); // Redirect on successful login
     }
   };
 
@@ -39,7 +61,7 @@ export default function Login() {
       <div className="w-full max-w-md px-8">
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <img src="/logo.svg" alt="Company Logo" className="h-12 w-auto" />
+          <img src="/revue_logo.png" alt="Company Logo" className="h-12 w-auto" />
         </div>
 
         {/* Titolo */}
@@ -93,7 +115,7 @@ export default function Login() {
 
           {/* Forgot Password */}
           <div className="flex justify-end mb-6">
-            <a href="#" className="text-[#7F8EA3] hover:underline">
+            <a href="/forgotPasswordBS" className="text-[#7F8EA3] hover:underline">
               Forgot Password?
             </a>
           </div>
@@ -101,7 +123,7 @@ export default function Login() {
           {/* Tasto Sign In */}
           <button
             type="submit"
-            className="w-full bg-[#3571FF] text-white py-3 px-4 rounded-lg hover:bg-[#265ecf] transition duration-200"
+            className="w-full bg-[#3571FF] text-white py-3 px-4 rounded-full hover:bg-[#265ecf] transition duration-200"
           >
             Sign In
           </button>
@@ -110,9 +132,9 @@ export default function Login() {
         {/* Link per la registrazione */}
         <p className="text-center text-[#7F8EA3] mt-6">
           Don't have an account?{' '}
-          <Link href="/signupBS" className="text-[#3571FF] hover:underline">
+          <a href="/signupBS" className="text-[#3571FF] hover:underline">
             Sign up
-          </Link>
+          </a>
         </p>
 
         {/* Copyright */}
