@@ -10,22 +10,25 @@ export default function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
   const router = useRouter();
-  
-  const searchParams = new URLSearchParams(window.location.search);
-  const accessToken = searchParams.get('access_token'); // Recuperiamo il token dalla URL
 
   useEffect(() => {
-    if (!accessToken) {
-      setErrorMessage('Invalid or missing reset token.');
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search);
+      const token = searchParams.get('access_token');
+      setAccessToken(token);
+      if (!token) {
+        setErrorMessage('Invalid or missing reset token.');
+      }
     }
-  }, [accessToken]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
-    
+
     // Verifica che la password sia la stessa
     if (newPassword !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
@@ -40,7 +43,7 @@ export default function ResetPassword() {
 
     try {
       setIsLoading(true);
-      
+
       // Usa il token per resettare la password
       const { error } = await supabase.auth.api.updateUser(accessToken, {
         password: newPassword,
@@ -75,7 +78,7 @@ export default function ResetPassword() {
 
         {errorMessage && <div className="text-red-500 text-center mb-4">{errorMessage}</div>}
         {successMessage && <div className="text-green-500 text-center mb-4">{successMessage}</div>}
-        
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="newPassword" className="text-white">New Password</label>
