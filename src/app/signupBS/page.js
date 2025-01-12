@@ -6,6 +6,7 @@ import { db, storage } from '../../../lib/firebaseClient';
 import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { supabase } from '../../../lib/supabaseClient';
+import CheckoutButton from '../components/stripe/checkoutButton';
 
 export default function SignUp() {
   const [step, setStep] = useState(1);
@@ -71,10 +72,28 @@ export default function SignUp() {
     }
   
     try {
+
+      const stripeResponse = await fetch('/api/stripe/create-customer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: restaurantData.ownerEmail,
+          name: restaurantData.ownerName,
+        }),
+      });
+  
+      const { customerId } = await stripeResponse.json();
+  
+      if (!customerId) {
+        setErrorMessage('Errore nella creazione del cliente Stripe.');
+        return;
+      }
+      
       // Crea account su Supabase
       const { data, error } = await supabase.auth.signUp({
         email: restaurantData.ownerEmail,
         password: restaurantData.password,
+        stripecustomerid: customerId,
       });
   
       if (error) {
@@ -97,6 +116,8 @@ export default function SignUp() {
         ...restaurantData,
         logo: null, // Logo è nullo poiché non lo stiamo salvando
         userId, // Salva l'ID dell'utente Supabase
+        subscriptionactive: true,
+        stripecustomerid: customerId,
       });
 
       setSuccessMessage('We have sent you a confirmation email.');
@@ -311,6 +332,21 @@ export default function SignUp() {
               </div>
             </>
           )}
+          {step === 5 && (
+            <>
+              <div className="mb-4">
+                <h1 className="text-xl font-semibold text-white text-left mb-2">Choose membership</h1>
+                <div>
+                  <h2>Monthly</h2>
+                  <CheckoutButton priceId="price_1QevYILUwxk7hkCwpB5JgHZE" restaurantData={restaurantData} />
+                </div>
+                <div>
+                  <h2>Annual</h2>
+                  <CheckoutButton priceId="price_1QevZtLUwxk7hkCwUmAMCJIM" />
+                </div>
+              </div>
+            </>
+          )}
           <div className="flex justify-between">
             {step > 1 && (
               <button
@@ -321,13 +357,16 @@ export default function SignUp() {
                 Back
               </button>
             )}
-            <button
-              type="button"
-              onClick={step === 4 ? handleSubmit : handleNextStep}
-              className="bg-[#3571FF] text-white py-3 px-4 rounded-full hover:bg-[#265ecf] transition duration-200"
-            >
-              {step === 5 ? 'Complete' : 'Next'}
-            </button>
+            {step !== 5 && (
+              <button
+                type="button"
+                onClick={step === 5 ? handleSubmit : handleNextStep}
+                className="bg-[#3571FF] text-white py-3 px-4 rounded-full hover:bg-[#265ecf] transition duration-200"
+              >
+                {step === 5 ? 'Complete' : 'Next'}
+              </button>
+            )}
+
           </div>
         </form>
 

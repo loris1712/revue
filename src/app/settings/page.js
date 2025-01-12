@@ -31,6 +31,56 @@ export default function Settings() {
   const router = useRouter();
   const [showNav, setShowNav] = useState(false);
 
+  const [subscription, setSubscription] = useState(null);
+  const [payments, setPayments] = useState([]);
+
+  const [error, setError] = useState('');
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/stripe/subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email }),
+        });        
+        if (!response.ok) {
+          throw new Error('Failed to fetch subscription data.');
+        }
+        const data = await response.json();
+        setSubscription(data.subscription);
+        console.log(data.subscription);
+        setPayments(data.payments);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    if(email.length > 0)
+    {
+      fetchData();
+    }
+    
+  }, [email]);
+
+  const cancelSubscription = async () => {
+    try {
+      const response = await fetch('/api/stripe/cancel-subscription', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to cancel subscription.');
+      }
+      alert('Subscription canceled successfully.');
+      setSubscription(null); // Aggiorna lo stato
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       // Mostra la navbar se scorri più di 50px, nascondila altrimenti
@@ -46,6 +96,8 @@ export default function Settings() {
       try {
         const { data: { user }, error } = await supabase.auth.getUser();
         if (error) throw error;
+
+        console.log(user)
 
         if (user) {
           setUserId(user.id);
@@ -132,7 +184,7 @@ export default function Settings() {
 
         {/* Tabs */}
         <div className="flex space-x-4 mb-6">
-          {['info', 'owner', 'social', 'platforms'].map((tab) => (
+          {['info', 'owner', 'social', 'platforms', 'subscription'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -331,6 +383,50 @@ export default function Settings() {
                   className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
                 />
               </div>
+            </>
+          )}
+
+          {activeTab === 'subscription' && (
+            <>
+      {error && <p className="text-red-500">{error}</p>}
+
+      {subscription ? (
+        <div className="mb-6">
+          <h2 className="text-[20px] font-semibold">Current Subscription</h2>
+          <p>
+            Plan: {subscription.plan.nickname} <br />
+            Status: {subscription.status} <br />
+            Renewal Date:{' '}
+            {new Date(subscription.current_period_end * 1000).toLocaleDateString()}
+          </p>
+          <button
+            onClick={cancelSubscription}
+            className="bg-red-500 hover:bg-red-600 text-white text-[12px] px-4 py-2 rounded-lg mt-4 rounded-3xl"
+          >
+            Cancel Subscription
+          </button>
+        </div>
+      ) : (
+        <p>No active subscription.</p>
+      )}
+
+      <div className="mb-4">
+        <h2 className="text-[20px] font-semibold mb-2">Recent Payments</h2>
+        {payments.length > 0 ? (
+          <ul>
+            {payments.map((payment) => (
+              <li key={payment.id} className="flex justify-between items-center py-2 border-b border-gray-200">
+                <div>Amount: ${(payment.amount / 100).toFixed(2)}</div>
+                <div>Status: {payment.status}</div>
+                <div>Date: {new Date(payment.created * 1000).toLocaleDateString()}</div>
+              </li>
+            
+            ))}
+          </ul>
+        ) : (
+          <p>No payments found.</p>
+        )}
+      </div>
             </>
           )}
 
