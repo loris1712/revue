@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '../../../../lib/firebaseClient';
 import Stripe from 'stripe';
 import { doc, updateDoc } from 'firebase/firestore';
-
+ 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
