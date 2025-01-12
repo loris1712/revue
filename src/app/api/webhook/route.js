@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { db } from '../../../lib/firebaseClient';
 import Stripe from 'stripe';
 import { buffer } from 'micro';
@@ -6,23 +7,17 @@ import { doc, updateDoc } from 'firebase/firestore';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-export const config = {
-  api: {
-    bodyParser: false, // Necessario per Stripe
-  },
-};
-
-export default async function handler(req, res) {
-  const sig = req.headers['stripe-signature'];
+export async function POST(req) {
+  const sig = req.headers.get('stripe-signature');
 
   let event;
 
   try {
-    const buf = await buffer(req);
+    const buf = await req.arrayBuffer();
     event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
   } catch (err) {
     console.error('Errore webhook:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
   if (event.type === 'checkout.session.completed') {
@@ -40,9 +35,9 @@ export default async function handler(req, res) {
       console.log('Stato dell\'utente aggiornato con successo');
     } catch (error) {
       console.error('Errore nell\'aggiornare l\'utente:', error);
-      return res.status(500).json({ error: 'Errore nell\'aggiornare l\'utente.' });
+      return NextResponse.json({ error: 'Errore nell\'aggiornare l\'utente.' }, { status: 500 });
     }
   }
 
-  res.status(200).json({ received: true });
+  return NextResponse.json({ received: true }, { status: 200 });
 }
