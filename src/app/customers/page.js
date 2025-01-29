@@ -14,8 +14,8 @@ const CustomersPage = () => {
   const [isCustomReview, setIsCustomReview] = useState(false);
   const [customReview, setCustomReview] = useState("");
   const [generatedFeedback, setGeneratedFeedback] = useState("");
-  const [showPopup, setShowPopup] = useState(true);
-  const [showPopup2, setShowPopup2] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup2, setShowPopup2] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -298,7 +298,7 @@ const CustomersPage = () => {
       {showPopup &&
       
         <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex md:justify-center md:items-center z-50">
-          <div className="bg-white p-6 shadow-lg md:w-[40%] w-full h-full">
+          <div className="bg-white p-6 shadow-lg md:w-[40%] w-full h-full" style={{overflowY:"scroll", paddingBottom: "10rem"}}>
             <h2 className="text-xl text-[#030711] font-semibold text-left mb-2">Generated Review</h2>
             <p className="text-[14px] text-[#030711] font-regular text-left mb-8" style={{ lineHeight: '14px',}}>By saving the review, we will send it to the business. You can edit or cancel the review as well.</p>
             
@@ -325,7 +325,7 @@ const CustomersPage = () => {
                   Cancel
                 </button>
                 <button
-                  onClick={handleReset}
+                  onClick={closePopup}
                   className="bg-white text-[#3571FF] text-[14px] py-2 px-4 rounded-[8px] font-semibold flex-1 ml-2"
                 >
                   Regenerate
