@@ -100,55 +100,55 @@ const CustomersPage = () => {
 
   const generateFeedback = async () => {
     try {
-      // Prepara il testo del prompt
-      const prompt = `
-        Sei un generatore di feedback per un ristorante. Devi generare una recensione in prima persona basata sulle valutazioni fornite per ciascuna domanda. Rispondi come se fossi un cliente che descrive la propria esperienza.
-        
-        Domande e valutazioni:
-        ${questions.map((question, index) => {
-          const rating = ratings[index] || 0;
-          return `Domanda: "${question}" - Valutazione: ${rating} stelle.`;
-        }).join("\n")}
-        
-        Scrivi un commento sincero in prima persona, descrivendo come ti sei sentito riguardo il servizio e l'esperienza, facendo riferimento alle domande e alle valutazioni. Utilizza un linguaggio naturale e preciso.
-      `;
-  
-      // Configura la richiesta a Gemini API
-      const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDb22OMCKRmAe-98dziGzR4Jb6fAMsUaPw",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [{ text: prompt }],
-              },
-            ],
-          }),
+        // Prepare the prompt text
+        const prompt = `
+            You are a restaurant feedback generator. Your task is to create a first-person review based on the provided ratings for each question. Respond as if you were a customer describing your experience.
+
+            Questions and ratings:
+            ${questions.map((question, index) => {
+                const rating = ratings[index] || 0;
+                return `Question: "${question}" - Rating: ${rating} stars.`;
+            }).join("\n")}
+
+            Write an honest comment in the first person, describing how you felt about the service and overall experience, referencing the questions and ratings. Use natural and precise language.
+        `;
+
+        // Configure the request to the Gemini API
+        const response = await fetch(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDb22OMCKRmAe-98dziGzR4Jb6fAMsUaPw",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [{ text: prompt }],
+                        },
+                    ],
+                }),
+            }
+        );
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // Extract the generated feedback from the response
+            const generatedFeedback =
+                data.candidates && data.candidates[0]?.content?.parts[0]?.text
+                    ? data.candidates[0].content.parts[0].text
+                    : "No feedback generated.";
+
+            // Display the generated feedback
+            setGeneratedFeedback(generatedFeedback.trim());
+            setShowPopup(true);
+            console.log(generatedFeedback.trim());
+        } else {
+            console.error("Error generating feedback:", response.statusText);
         }
-      );
-  
-      if (response.ok) {
-        const data = await response.json();
-  
-        // Estrai il testo del feedback dalla risposta
-        const generatedFeedback =
-          data.candidates && data.candidates[0]?.content?.parts[0]?.text
-            ? data.candidates[0].content.parts[0].text
-            : "No feedback generated.";
-  
-        // Mostra il feedback generato
-        setGeneratedFeedback(generatedFeedback.trim());
-        setShowPopup(true);
-        console.log(generatedFeedback.trim())
-      } else {
-        console.error("Error generating feedback:", response.statusText);
-      }
     } catch (error) {
-      console.error("Error calling Gemini API:", error);
+        console.error("Error calling Gemini API:", error);
     }
   };
 
@@ -303,9 +303,9 @@ const CustomersPage = () => {
             <p className="text-[14px] text-[#030711] font-regular text-left mb-8" style={{ lineHeight: '14px',}}>By saving the review, we will send it to the business. You can edit or cancel the review as well.</p>
             
             <div className="px-4 py-2 rounded-[30px] bg-[#3571FF]">
-              <p className="text-left text-[60px] mb-0 text-light">"</p>
-              <p className="text-center mb-4 text-light italic">{generatedFeedback} Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesettin.</p>
-              <p className="text-right text-[60px] mb-0 text-light">"</p>
+              <p className="text-left text-[60px] mb-0 text-white">"</p>
+              <p className="text-center mb-4 text-white italic">{generatedFeedback}</p>
+              <p className="text-right text-[60px] mb-0 text-white">"</p>
             </div>
             <div
               className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full md:max-w-[40%] bg-[#3571FF] flex flex-col p-4 border-t-[12px] border-[#3571FF]"
