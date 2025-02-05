@@ -102,15 +102,15 @@ const CustomersPage = () => {
     try {
         // Prepare the prompt text
         const prompt = `
-            You are a restaurant feedback generator. Your task is to create a first-person review based on the provided ratings for each question. Respond as if you were a customer describing your experience.
+            You are a restaurant feedback generator. Your task is to create a first-person review based on the provided ratings, without explicitly mentioning numbers or stars. Instead, craft a smooth, natural, and engaging review that reflects the overall experience.
 
-            Questions and ratings:
+            Below are the aspects evaluated by the customer:
             ${questions.map((question, index) => {
                 const rating = ratings[index] || 0;
-                return `Question: "${question}" - Rating: ${rating} stars.`;
+                return `Aspect: "${question}" - Customer's impression: ${rating >= 4 ? "very positive" : rating === 3 ? "neutral" : "could be improved"}.`;
             }).join("\n")}
 
-            Write an honest comment in the first person, describing how you felt about the service and overall experience, referencing the questions and ratings. Use natural and precise language.
+            Write a well-structured and natural review, maintaining a positive and constructive tone. Highlight strengths where applicable and provide subtle, polite suggestions for improvement when necessary. Ensure the review feels like a genuine customer experience, avoiding robotic or forced language.
         `;
 
         // Configure the request to the Gemini API
