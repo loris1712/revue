@@ -89,6 +89,8 @@ const CustomersPage = () => {
     if (questionIndex === currentQuestionIndex && questionIndex < questions.length - 1) {
       setCurrentQuestionIndex(questionIndex + 1);
     }
+    
+    console.log(ratings);
   };
 
   const handleReset = () => {
@@ -102,16 +104,29 @@ const CustomersPage = () => {
     try {
         // Prepare the prompt text
         const prompt = `
-            You are a restaurant feedback generator. Your task is to create a first-person review based on the provided ratings, without explicitly mentioning numbers or stars. Instead, craft a smooth, natural, and engaging review that reflects the overall experience.
+    You are a restaurant feedback generator. Create a short, balanced, and natural first-person review based on the provided ratings, without explicitly mentioning numbers or stars. The review should reflect the overall experience realistically.
 
-            Below are the aspects evaluated by the customer:
-            ${questions.map((question, index) => {
-                const rating = ratings[index] || 0;
-                return `Aspect: "${question}" - Customer's impression: ${rating >= 4 ? "very positive" : rating === 3 ? "neutral" : "could be improved"}.`;
-            }).join("\n")}
+    Ratings:
+    ${questions.map((question, index) => {
+        const rating = ratings[index] || 0;
+        return `Aspect: "${question}" - Customer's impression: ${
+            rating >= 7
+                ? "positive but with minor suggestions for improvement"
+                : rating >= 5
+                ? "moderately positive with noticeable areas for enhancement"
+                : "needs significant improvement"
+        }.`;
+    }).join("\n")}
 
-            Write a well-structured and natural review, maintaining a positive and constructive tone. Highlight strengths where applicable and provide subtle, polite suggestions for improvement when necessary. Ensure the review feels like a genuine customer experience, avoiding robotic or forced language.
-        `;
+    Guidelines:
+    - Keep the review concise and to the point.
+    - Reflect the ratings realistically: if all ratings are not extremely high, avoid overly enthusiastic language.
+    - Balance compliments with polite suggestions for improvement when appropriate.
+    - Maintain a genuine and natural tone, avoiding repetitive phrases.
+    - Ensure the review feels authentic and relatable.
+
+    Write a well-structured review, summarizing the key points in 2-3 short paragraphs.
+`;
 
         // Configure the request to the Gemini API
         const response = await fetch(
@@ -298,9 +313,9 @@ const CustomersPage = () => {
       {showPopup &&
       
         <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex md:justify-center md:items-center z-50">
-          <div className="bg-white p-6 shadow-lg md:w-[40%] w-full h-full" style={{overflowY:"scroll", paddingBottom: "10rem"}}>
-            <h2 className="text-xl text-[#030711] font-semibold text-left mb-2">Generated Review</h2>
-            <p className="text-[14px] text-[#030711] font-regular text-left mb-8" style={{ lineHeight: '14px',}}>By saving the review, we will send it to the business. You can edit or cancel the review as well.</p>
+          <div className="bg-[#030711] p-6 md:w-[40%] w-full h-full" style={{overflowY:"scroll", paddingBottom: "10rem"}}>
+            <h2 className="text-xl text-[#fff] font-semibold text-left mb-2">Generated Review</h2>
+            <p className="text-[14px] text-[#fff] font-regular text-left mb-8" style={{ lineHeight: '14px',}}>By saving the review, we will send it to the business. You can edit or cancel the review as well.</p>
             
             <div className="px-4 py-2 rounded-[30px] bg-[#3571FF]">
               <p className="text-left text-[60px] mb-0 text-white">"</p>
@@ -338,7 +353,7 @@ const CustomersPage = () => {
 
       {showPopup2 && 
         <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-end z-50 h-full">
-          <div className="bg-white rounded-t-[20px] shadow-lg md:w-[40%] w-full pt-6">
+          <div className="bg-white rounded-t-[20px] md:w-[40%] w-full pt-6">
             <h2 className="text-xl text-[#030711] font-semibold text-left mb-2 px-6">Saved Review.</h2>
             <p className="text-[14px] text-[#030711] font-regular text-left mb-8 px-6" style={{ lineHeight: '14px' }}>
               The review is copied, now you can paste it on the following platforms:
