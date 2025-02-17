@@ -81,17 +81,26 @@ const CustomersPage = () => {
   };
 
   const handleRating = (questionIndex, rating) => {
-    setRatings((prevRatings) => ({
-      ...prevRatings,
-      [questionIndex]: rating,
-    }));
-
+    setRatings((prevRatings) => {
+      const updatedRatings = {
+        ...prevRatings,
+        [questionIndex]: rating,
+      };
+  
+      // Se è stata votata l'ultima domanda, lancia generateFeedback()
+      if (questionIndex === questions.length - 1) {
+        generateFeedback();
+      }
+  
+      return updatedRatings;
+    });
+  
     if (questionIndex === currentQuestionIndex && questionIndex < questions.length - 1) {
       setCurrentQuestionIndex(questionIndex + 1);
     }
-    
+  
     console.log(ratings);
-  };
+  };  
 
   const handleReset = () => {
     setRatings({});
