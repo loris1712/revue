@@ -111,21 +111,28 @@ const CustomersPage = () => {
 
   const generateFeedback = async () => {
     try {
-        // Prepare the prompt text
+        console.log(questions)
+        console.log(ratings)
         const prompt = `
     You are a restaurant feedback generator. Create a short, balanced, and natural first-person review based on the provided ratings, without explicitly mentioning numbers or stars. The review should reflect the overall experience realistically.
 
     Ratings:
     ${questions.map((question, index) => {
-        const rating = ratings[index] || 0;
-        return `Aspect: "${question}" - Customer's impression: ${
-            rating >= 7
-                ? "positive but with minor suggestions for improvement"
-                : rating >= 5
-                ? "moderately positive with noticeable areas for enhancement"
-                : "needs significant improvement"
+      const rating = ratings[index] || 0;
+      return `Aspect: "${question}" - Customer's impression: ${
+          rating === 10
+              ? "excellent and perfect no improvements."
+              : rating >= 7
+              ? "very positive with some areas for improvement"
+              : rating >= 5
+              ? "good but requires multiple improvements"
+              : rating >= 3
+              ? "needs many improvements"
+              : rating >= 2
+              ? "poor with significant need for improvement"
+              : "terrible"
         }.`;
-    }).join("\n")}
+    }).join("\n")}  
 
     Guidelines:
     - Keep the review concise and to the point.
@@ -134,8 +141,12 @@ const CustomersPage = () => {
     - Maintain a genuine and natural tone, avoiding repetitive phrases.
     - Ensure the review feels authentic and relatable.
 
+    Don't mention any food of the menu.
+
     Write a well-structured review, summarizing the key points in 2-3 short paragraphs.
 `;
+
+console.log(prompt)
 
         // Configure the request to the Gemini API
         const response = await fetch(
@@ -205,8 +216,8 @@ const CustomersPage = () => {
                 style={{
                   cursor: "pointer",
                   color: isHalfStar || isFullStar ? "#FFD700" : "#FFFFFF",
-                  fontSize: "2rem",
-                  width: "1rem",
+                  fontSize: "4rem",
+                  width: "2rem",
                   overflow: "hidden",
                   display: "inline-block",
                 }}
@@ -219,9 +230,9 @@ const CustomersPage = () => {
                 style={{
                   cursor: "pointer",
                   color: isFullStar ? "#FFD700" : "#FFFFFF",
-                  fontSize: "2rem",
+                  fontSize: "4rem",
                   transform: "scaleX(-1)",
-                  width: "1rem",
+                  width: "2rem",
                   overflow: "hidden",
                   display: "inline-block",
                 }}
@@ -326,10 +337,10 @@ const CustomersPage = () => {
             <h2 className="text-xl text-[#fff] font-semibold text-left mb-2">Generated Review</h2>
             <p className="text-[14px] text-[#fff] font-regular text-left mb-8" style={{ lineHeight: '14px',}}>By saving the review, we will send it to the business. You can edit or cancel the review as well.</p>
             
-            <div className="px-4 py-2 rounded-[30px] bg-[#3571FF]">
-              <p className="text-left text-[60px] mb-0 text-white">"</p>
+            <div className="px-4 py-2 rounded-[30px]" style={{border: '1px solid #3571ff'}}>
+              <p className="text-left text-[60px] mb-0 text-[#3571ff]">"</p>
               <p className="text-center mb-4 text-white italic">{generatedFeedback}</p>
-              <p className="text-right text-[60px] mb-0 text-white">"</p>
+              <p className="text-right text-[60px] mb-0 text-[#3571ff]">"</p>
             </div>
             <div
               className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full md:max-w-[40%] bg-[#3571FF] flex flex-col p-4 border-t-[12px] border-[#3571FF]"
