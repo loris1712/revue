@@ -87,10 +87,10 @@ const CustomersPage = () => {
         [questionIndex]: rating,
       };
   
-      // Se è stata votata l'ultima domanda, lancia generateFeedback()
+      /*
       if (questionIndex === questions.length - 1) {
         generateFeedback();
-      }
+      }*/
   
       return updatedRatings;
     });
@@ -114,7 +114,7 @@ const CustomersPage = () => {
         console.log(questions)
         console.log(ratings)
         const prompt = `
-    You are a restaurant feedback generator. Create a short, balanced, and natural first-person review based on the provided ratings, without explicitly mentioning numbers or stars. The review should reflect the overall experience realistically.
+    You are a restaurant feedback generator. Create a short, balanced, and natural first-person review based on the provided ratings, without explicitly mentioning numbers or stars.
 
     Ratings:
     ${questions.map((question, index) => {
@@ -136,8 +136,6 @@ const CustomersPage = () => {
 
     Guidelines:
     - Keep the review concise and to the point.
-    - Reflect the ratings realistically: if all ratings are not extremely high, avoid overly enthusiastic language.
-    - Balance compliments with polite suggestions for improvement when appropriate.
     - Maintain a genuine and natural tone, avoiding repetitive phrases.
     - Ensure the review feels authentic and relatable.
 
@@ -145,8 +143,6 @@ const CustomersPage = () => {
 
     Write a well-structured review, summarizing the key points in 2-3 short paragraphs.
 `;
-
-console.log(prompt)
 
         // Configure the request to the Gemini API
         const response = await fetch(
