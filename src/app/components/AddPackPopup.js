@@ -54,8 +54,8 @@ export default function AddPackPopup({ isOpen, onClose, packData, onSave }) {
 
   return (
     isOpen && (
-      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg md:w-1/3 w-full">
+      <div className="fixed inset-0 bg-[#000000e0] bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white p-8 rounded-lg md:w-[50vw] w-full">
           <h3 className="text-xl font-semibold text-[#030711] rounded-[100px]">{packData ? 'Edit Pack' : 'Add Pack'}</h3>
 
           <label className="block mt-4 text-[#030711] text-[14px]">
@@ -78,7 +78,7 @@ export default function AddPackPopup({ isOpen, onClose, packData, onSave }) {
             />
           </label>
 
-          <div className="mt-4">
+          <div className="mt-4" style={{height: '40vh', overflowY: 'scroll'}}>
             <label className="block text-[#030711] text-[14px]">Questions:</label>
             {questions.map((question, index) => (
               <div key={index} className="flex items-center mt-2">

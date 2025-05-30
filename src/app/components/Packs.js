@@ -88,7 +88,7 @@ export default function Packs() {
           <div
             key={pack.id}
             onClick={() => handlePackSelect(pack.id)}
-            className={`rounded-lg p-4 w-64 h-64 flex-shrink-0 cursor-pointer  border
+            className={`rounded-lg p-4 w-64 h-40 flex-shrink-0 cursor-pointer  border
            border-[#0f172a]
               ${selectedPack === pack.id ? 'bg-[#3471FF]' : 'bg-[#0b16339c]'}`
             }

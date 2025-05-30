@@ -69,7 +69,7 @@ export default function Dashboard() {
   useEffect(() => {
     setIsClient(true);
     if (typeof window !== 'undefined') {
-      setQrCodeUrl(window.location.href);
+      setQrCodeUrl('https://www.revuetool.com/customers?userId='+userId);
     }
 
     const handleScroll = () => {
@@ -79,7 +79,7 @@ export default function Dashboard() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [userId]);
 
   if (!isClient) {
     return null;

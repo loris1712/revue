@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Sidebar from '../components/Sidebar';
 import HeaderMobile from '../components/HeaderMobile';
 import Header from '../components/Header';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export default function Settings() {
   const [userId, setUserId] = useState('');
@@ -36,6 +37,14 @@ export default function Settings() {
 
   const [error, setError] = useState('');
 
+  const [businessName, setBusinessName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [businessAddress, setBusinessAddress] = useState('');
+  const [businessType, setBusinessType] = useState('');
+  const [locationType, setLocationType] = useState('');
+  const [goalWithRevue, setGoalWithRevue] = useState('');
+  const [reviewPreference, setReviewPreference] = useState('');
+  const [preferredPlatform, setPreferredPlatform] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,6 +132,14 @@ export default function Settings() {
             setTripAdvisor(profileData.tripAdvisor || '');
             setPaymentOptions(profileData.paymentOptions || []);
             setSeats(profileData.seats || 0);
+            setBusinessName(profileData.businessName || '')
+            setPhone(profileData.phone || '')
+            setBusinessAddress(profileData.businessAddress || '')
+            setBusinessType(profileData.businessType || '')
+            setLocationType(profileData.locationType || '')
+            setGoalWithRevue(profileData.goalWithRevue || '')
+            setReviewPreference(profileData.reviewPreference || '')
+            setPreferredPlatform(profileData.preferredPlatform || '')
           }
         } else {
           router.push('/loginBS');
@@ -139,6 +156,7 @@ export default function Settings() {
 
   const handleSave = async () => {
     try {
+
       const docRef = doc(db, 'restaurant_profiles', userId);
       await setDoc(docRef, {
         email,
@@ -155,14 +173,33 @@ export default function Settings() {
         tripAdvisor,
         paymentOptions,
         seats,
+        businessName,
+        phone,
+        businessAddress,
+        businessType,
+        locationType,
+        reviewPreference,
+        preferredPlatform,
+        goalWithRevue,
       }, { merge: true });
-      setSuccessMessage('Settings saved successfully!');
+      alert('Settings saved successfully!');
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error) {
       console.error('Error saving settings:', error.message || error);
       alert('Error saving settings.');
     }
   };
+
+  const handlePaymentOptionChange = (option) => {
+  setPaymentOptions((prevOptions) => {
+    if (prevOptions.includes(option)) {
+      return prevOptions.filter((item) => item !== option);
+    } else {
+      return [...prevOptions, option];
+    }
+  });
+};
+
 
   if (loading) {
     return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
@@ -263,6 +300,123 @@ export default function Settings() {
                   className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
                 />
               </div>
+
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2" htmlFor="businessName">Business Name</label>
+                <input
+                  type="text"
+                  id="businessName"
+                  value={businessName}
+                  placeholder="Business name"
+                  onChange={(e) => setBusinessName(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
+              {/* Phone Number */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2" htmlFor="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  placeholder="Phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
+              {/* Email */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2" htmlFor="email">Contact Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
+              {/* Business Address */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2" htmlFor="businessAddress">Business Address</label>
+                <input
+                  type="text"
+                  id="businessAddress"
+                  placeholder="Business address"
+                  value={businessAddress}
+                  onChange={(e) => setBusinessAddress(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
+              {/* Business Type */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2" htmlFor="businessType">Type of Business</label>
+                <input
+                  type="text"
+                  id="businessType"
+                  placeholder="Business type"
+                  value={businessType}
+                  onChange={(e) => setBusinessType(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
+              {/* Location Type */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2">Location Type</label>
+                <select
+                  value={locationType}
+                  onChange={(e) => setLocationType(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                >
+                  <option value="" disabled>Select one</option>
+                  <option value="single">Single Location</option>
+                  <option value="multiple">Multiple Locations</option>
+                </select>
+              </div>
+
+              {/* Review Preference */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2">Use Revue for</label>
+                <select
+                  value={reviewPreference}
+                  onChange={(e) => setReviewPreference(e.target.value)}
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                >
+                  <option value="" disabled>Select one</option>
+                  <option value="reviews">Only Reviews</option>
+                  <option value="statistics">Only Feedback Stats</option>
+                  <option value="both">Both</option>
+                </select>
+              </div>
+
+              {/* Preferred Review Platform */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2">Preferred Platform for Reviews</label>
+                <input
+                  type="text"
+                  value={preferredPlatform}
+                  onChange={(e) => setPreferredPlatform(e.target.value)}
+                  placeholder="e.g. Google, Yelp"
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
+              {/* Goals with Revue */}
+              <div className="mb-4">
+                <label className="text-white text-sm mb-2">What do you want to achieve with Revue?</label>
+                <textarea
+                  value={goalWithRevue}
+                  onChange={(e) => setGoalWithRevue(e.target.value)}
+                  placeholder="e.g. More 5-star reviews, Improve service based on feedback"
+                  className="w-full p-3 bg-white text-black rounded-lg focus:outline-none"
+                />
+              </div>
+
             </>
           )}
 
@@ -432,7 +586,7 @@ export default function Settings() {
 
           <button
             onClick={handleSave}
-            className="w-[fit-content] bg-blue-500 text-white px-6 py-2 rounded-[100px] hover:bg-blue-600 transition"
+            className="w-[fit-content] bg-blue-500 text-white px-6 py-2 rounded-[100px] hover:bg-blue-600 transition mb-12 mt-4"
           >
             Save Settings
           </button>

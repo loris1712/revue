@@ -193,54 +193,60 @@ const CustomersPage = () => {
   };
 
   const renderStars = (questionIndex) => {
-    const maxStars = 5;
-    const rating = ratings[questionIndex] || 0;
+  const maxStars = 5;
+  const rating = ratings[questionIndex] || 0;
+  const isDisabled = questionIndex > currentQuestionIndex; // ❗️ Disabilita se la domanda è oltre quella attuale
 
-    return (
-      <div className="flex items-center space-x-2">
-        {[...Array(maxStars)].map((_, index) => {
-          const fullStarValue = (index + 1) * 2; // Full star value
-          const halfStarValue = fullStarValue - 1; // Half star value
-          const isFullStar = rating >= fullStarValue;
-          const isHalfStar = rating === halfStarValue;
+  return (
+    <div className="flex items-center space-x-2">
+      {[...Array(maxStars)].map((_, index) => {
+        const fullStarValue = (index + 1) * 2;
+        const halfStarValue = fullStarValue - 1;
+        const isFullStar = rating >= fullStarValue;
+        const isHalfStar = rating === halfStarValue;
 
-          return (
-            <div key={index} className="relative flex items-center">
-              {/* Half star */}
-              <span
-                onClick={() => handleRating(questionIndex, halfStarValue)}
-                style={{
-                  cursor: "pointer",
-                  color: isHalfStar || isFullStar ? "#FFD700" : "#FFFFFF",
-                  fontSize: "4rem",
-                  width: "2rem",
-                  overflow: "hidden",
-                  display: "inline-block",
-                }}
-              >
-                ★
-              </span>
-              {/* Full star */}
-              <span
-                onClick={() => handleRating(questionIndex, fullStarValue)}
-                style={{
-                  cursor: "pointer",
-                  color: isFullStar ? "#FFD700" : "#FFFFFF",
-                  fontSize: "4rem",
-                  transform: "scaleX(-1)",
-                  width: "2rem",
-                  overflow: "hidden",
-                  display: "inline-block",
-                }}
-              >
-                ★
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+        return (
+          <div key={index} className="relative flex items-center">
+            <span
+              onClick={() =>
+                !isDisabled && handleRating(questionIndex, halfStarValue)
+              }
+              style={{
+                cursor: isDisabled ? "default" : "pointer",
+                color: isHalfStar || isFullStar ? "#FFD700" : "#FFFFFF",
+                fontSize: "4rem",
+                width: "2rem",
+                overflow: "hidden",
+                display: "inline-block",
+                opacity: isDisabled ? 0.3 : 1,
+              }}
+            >
+              ★
+            </span>
+            <span
+              onClick={() =>
+                !isDisabled && handleRating(questionIndex, fullStarValue)
+              }
+              style={{
+                cursor: isDisabled ? "default" : "pointer",
+                color: isFullStar ? "#FFD700" : "#FFFFFF",
+                fontSize: "4rem",
+                transform: "scaleX(-1)",
+                width: "2rem",
+                overflow: "hidden",
+                display: "inline-block",
+                opacity: isDisabled ? 0.3 : 1,
+              }}
+            >
+              ★
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#060911] relative">
